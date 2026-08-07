@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WhaTap APM 구축 및 Application Performance Monitoring | SBLT</title>
+  <meta name="description" content="WhaTap APM 구축부터 Java, JVM, Kubernetes, Transaction, SQL, GC, Heap, CPU, Memory 분석까지 연결하는 SBLT Application Performance Monitoring 서비스입니다.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sblt.ai/whatap-apm/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WhaTap APM 구축 및 Application Performance Monitoring">
+  <meta property="og:description" content="와탭 데이터를 실제 운영 개선으로 연결하는 APM 구축 및 성능 분석 서비스입니다.">
+  <meta property="og:url" content="https://sblt.ai/whatap-apm/">
+  <meta property="og:image" content="https://sblt.ai/assets/og-sblt.jpg">
+  <link rel="icon" href="/assets/sblt-mark.png">
+  <link rel="stylesheet" href="/assets/seo-landing.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEBW760W96"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MEBW760W96');</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"SBLT WhaTap APM 구축","serviceType":"Application Performance Monitoring","provider":{"@type":"Organization","name":"SBLT","url":"https://sblt.ai/"},"areaServed":"KR","url":"https://sblt.ai/whatap-apm/","description":"WhaTap APM 구축과 Java, JVM, Kubernetes, Transaction 및 시스템 자원 분석 서비스"}</script>
+</head>
+<body>
+  <header class="site-header"><div class="shell header-inner"><a class="brand" href="/" aria-label="SBLT 홈페이지"><img src="/assets/sblt-logo.png" alt="SBLT" width="1080" height="288"></a><a class="header-link" href="/#contact">프로젝트 문의 →</a></div></header>
+  <main>
+    <section class="hero"><div class="shell hero-inner"><p class="eyebrow">Observability · APM</p><h1>WhaTap APM 구축 및 Application Performance Monitoring</h1><p class="hero-lead">WhaTap을 설치하는 데서 멈추지 않고 Transaction과 시스템 지표의 관계를 설계해 장애와 성능 저하를 빠르게 해석할 수 있는 관측 환경을 구축합니다.</p><div class="hero-tags"><span>WhaTap APM</span><span>Java Monitoring</span><span>JVM</span><span>Kubernetes</span><span>SQL</span><span>GC · Heap</span></div></div></section>
+    <section class="content"><div class="shell article-grid"><article class="article-body">
+      <h2>와탭 데이터를 운영 가능한 정보로 바꿉니다</h2>
+      <p><strong>WhaTap</strong>과 <strong>WhaTap APM</strong>은 Application의 Transaction 흐름과 성능 상태를 빠르게 파악할 수 있는 관측 도구입니다. 그러나 에이전트를 설치하고 Dashboard를 여는 것만으로는 서비스의 병목과 장애 원인이 자동으로 설명되지 않습니다. 업무 중요도와 시스템 구조를 반영한 <strong>APM 구축</strong> 기준이 필요합니다.</p>
+      <p>SBLT는 핵심 서비스, 호출 관계, 정상 응답시간, 오류 기준을 먼저 정의합니다. 이후 <strong>Transaction Monitoring</strong>을 중심으로 Application, Database, Kubernetes와 Infrastructure 지표를 연결해 운영자가 증상에서 원인 후보까지 빠르게 좁힐 수 있도록 구성합니다.</p>
+      <h2>Java Monitoring과 JVM 분석을 연결합니다</h2>
+      <p><strong>Java Monitoring</strong>에서는 단순 CPU 사용률보다 JVM 내부에서 어떤 일이 발생하는지 함께 확인해야 합니다. Transaction 응답시간 변화와 <strong>GC</strong>, <strong>Heap</strong>, Thread, Class Loading, Connection Pool을 같은 시간대에 비교하면 지연의 원인이 Application Code인지, 자원 부족인지, 외부 의존성인지 구분하기 쉬워집니다.</p>
+      <ul class="check-list">
+        <li><strong>Transaction Monitoring:</strong> 서비스 호출 흐름, 응답시간, 오류와 외부 호출을 추적합니다.</li>
+        <li><strong>SQL 분석:</strong> Slow SQL과 호출 빈도, 실행시간을 Transaction 문맥에서 확인합니다.</li>
+        <li><strong>JVM 관측:</strong> GC Pause, Heap 사용량, Thread 상태와 Application 지연을 연계합니다.</li>
+        <li><strong>자원 분석:</strong> CPU와 Memory 변화가 사용자 응답시간에 미치는 영향을 해석합니다.</li>
+      </ul>
+      <h2>Kubernetes 환경의 APM 구축</h2>
+      <p><strong>Kubernetes</strong> 환경에서는 Pod의 생성과 종료, Auto Scaling, Node 이동으로 관측 대상이 계속 변합니다. Application Transaction과 Pod, Container, Node 지표를 함께 볼 수 있어야 일시적인 지연이나 반복되는 성능 저하를 놓치지 않습니다.</p>
+      <p>SBLT는 Namespace와 서비스 분류, 태그 기준, 알림 임계치와 Dashboard 구성을 운영 방식에 맞게 정리합니다. CPU 또는 Memory 알림만 늘리는 것이 아니라 사용자 영향도가 큰 Transaction, 오류율, Latency를 중심으로 우선순위를 설계합니다.</p>
+      <h2>모니터링에서 성능 개선까지</h2>
+      <p>좋은 <strong>Application Performance Monitoring</strong>은 문제를 보여주는 데서 끝나지 않습니다. WhaTap과 와탭 APM에서 발견된 지표를 Heap Dump, Thread Dump, GC Log, SQL 실행계획과 연결해 Root Cause를 검증하고 개선 전후 효과를 측정해야 합니다.</p>
+      <p>SBLT는 운영 환경의 관측 기준 수립, APM 구축, Dashboard 및 Alert 설계, 성능 분석과 튜닝을 하나의 Performance Engineering 과정으로 연결합니다. 이를 통해 담당자가 장애 상황에서 무엇을 먼저 확인할지 명확한 기준을 갖도록 지원합니다.</p>
+      <div class="bottom-cta"><h2>모니터링을 문제 해결 체계로 전환하세요</h2><p>WhaTap APM과 시스템 전 구간의 데이터를 연결해 서비스 성능을 이해합니다.</p><a class="cta" href="https://sblt.ai/#whatap-apm">SBLT 홈페이지에서 APM 서비스 보기 →</a></div>
+    </article><aside class="side-card"><small>SBLT SERVICE</small><h2>WhaTap APM 서비스 자세히 보기</h2><p>홈페이지의 Monitoring &amp; Observability 역량과 기술 범위를 확인하세요.</p><a class="cta" href="https://sblt.ai/#whatap-apm">홈 방문하기 →</a></aside></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>SBLT Inc. · Performance Engineering Company</span><span>© 2026 SBLT Inc.</span></div></footer>
+</body>
+</html>

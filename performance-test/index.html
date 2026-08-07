@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>대규모 트래픽 성능테스트·부하테스트 | SBLT</title>
+  <meta name="description" content="대규모 트래픽 환경의 성능테스트와 부하테스트를 설계하고 TPS, 동시접속자, 병목, 용량 및 장애 전환을 검증하는 SBLT Performance Test 서비스입니다.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sblt.ai/performance-test/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="대규모 트래픽을 위한 성능테스트 및 부하테스트">
+  <meta property="og:description" content="JMeter, LoadRunner, k6 기반 부하 생성부터 TPS, 동시접속자, Bottleneck Analysis, Capacity Test, Failover Test까지 검증합니다.">
+  <meta property="og:url" content="https://sblt.ai/performance-test/">
+  <meta property="og:image" content="https://sblt.ai/assets/og-sblt.jpg">
+  <link rel="icon" href="/assets/sblt-mark.png">
+  <link rel="stylesheet" href="/assets/seo-landing.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEBW760W96"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MEBW760W96');</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"SBLT 성능테스트 및 부하테스트","serviceType":"Performance Test and Load Test","provider":{"@type":"Organization","name":"SBLT","url":"https://sblt.ai/"},"areaServed":"KR","url":"https://sblt.ai/performance-test/","description":"대규모 트래픽 시스템의 TPS, 동시접속자, 병목, 용량과 장애 전환을 검증하는 성능테스트 서비스"}</script>
+</head>
+<body>
+  <header class="site-header"><div class="shell header-inner"><a class="brand" href="/" aria-label="SBLT 홈페이지"><img src="/assets/sblt-logo.png" alt="SBLT" width="1080" height="288"></a><a class="header-link" href="/#contact">프로젝트 문의 →</a></div></header>
+  <main>
+    <section class="hero"><div class="shell hero-inner"><p class="eyebrow">Performance Test · Load Test</p><h1>대규모 트래픽을 위한 성능테스트 및 부하테스트</h1><p class="hero-lead">목표 TPS와 동시접속자를 숫자로 확인하는 데서 끝나지 않고, 실제 서비스 흐름을 따라 Bottleneck을 찾고 운영 가능한 용량과 안정성을 검증합니다.</p><div class="hero-tags"><span>JMeter</span><span>LoadRunner</span><span>k6</span><span>TPS</span><span>Capacity Test</span><span>Failover Test</span></div></div></section>
+    <section class="content"><div class="shell article-grid"><article class="article-body">
+      <h2>성능 목표를 실제 사용자 흐름으로 검증합니다</h2>
+      <p><strong>성능테스트</strong>와 <strong>부하테스트</strong>는 서버에 많은 요청을 보내는 작업만을 뜻하지 않습니다. 비즈니스 시나리오, 사용자 행동, 데이터 조건, 시스템 구성을 실제 운영 환경에 가깝게 모델링하고 목표 응답시간과 처리량을 충족하는지 확인하는 엔지니어링 과정입니다.</p>
+      <p>SBLT는 Application, Middleware, Database, Network, OS, Infrastructure를 하나의 Transaction 흐름으로 연결해 봅니다. 목표 <strong>TPS</strong>에 도달했더라도 응답시간이 급격히 늘거나 CPU, Memory, Connection Pool, SQL 중 특정 구간이 한계에 접근한다면 그 지점을 함께 분석합니다. 이를 통해 단순 성공·실패가 아니라 시스템이 왜 그 성능을 내는지 설명합니다.</p>
+      <h2>Performance Test와 Load Test의 범위</h2>
+      <p><strong>Performance Test</strong>는 성능 기준 수립부터 측정, 분석, 튜닝, 재검증까지 포함합니다. <strong>Load Test</strong>에서는 예상 트래픽을 단계적으로 발생시켜 정상 부하에서의 처리량과 응답시간을 확인합니다. 서비스 특성에 따라 순간 트래픽을 검증하는 Spike Test, 장시간 안정성을 확인하는 Soak Test도 함께 설계할 수 있습니다.</p>
+      <ul class="check-list">
+        <li><strong>TPS와 동시접속자 검증:</strong> 목표 처리량과 동시 세션에서 응답시간 및 오류율을 측정합니다.</li>
+        <li><strong>Bottleneck Analysis:</strong> JVM, DB, Network, OS와 Infrastructure 지표를 연결해 병목 원인을 찾습니다.</li>
+        <li><strong>Capacity Test:</strong> 현재 자원으로 처리 가능한 한계와 증설 시점을 산정합니다.</li>
+        <li><strong>Failover Test:</strong> 장애 전환 과정의 서비스 연속성, 복구 시간, 성능 변화를 검증합니다.</li>
+      </ul>
+      <h2>JMeter, LoadRunner, k6를 목적에 맞게 활용합니다</h2>
+      <p>도구보다 중요한 것은 재현 가능한 시나리오와 정확한 결과 해석입니다. SBLT는 환경과 목적에 따라 <strong>JMeter</strong>, <strong>LoadRunner</strong>, <strong>k6</strong> 등의 부하 도구를 활용합니다. API 호출 비율, Think Time, 데이터 파라미터, 인증, Ramp-up과 부하 분산 구조를 설계해 실제 트래픽 특성을 반영합니다.</p>
+      <p>테스트 중에는 평균값만 보지 않습니다. Percentile 응답시간, 오류 패턴, 처리량 변화와 함께 JVM GC, Heap, CPU, Memory, Thread, Connection Pool, Slow Query를 같은 시간축에서 분석합니다. 그래야 부하가 높아질 때 드러나는 <strong>성능 병목</strong>의 위치와 원인을 구분할 수 있습니다.</p>
+      <h2>테스트 결과를 개선과 용량 계획으로 연결합니다</h2>
+      <p>결과 보고서는 단순한 그래프 모음이 아니라 의사결정 자료여야 합니다. SBLT는 목표 대비 결과, Bottleneck Analysis, 개선 우선순위, 재검증 결과와 Capacity Planning 기준을 함께 정리합니다. 필요한 경우 튜닝 전후를 같은 조건으로 비교해 변경 효과를 수치로 확인합니다.</p>
+      <div class="bottom-cta"><h2>운영 가능한 성능을 검증하세요</h2><p>대규모 트래픽 경험을 기반으로 테스트 범위와 목표부터 함께 정의합니다.</p><a class="cta" href="https://sblt.ai/#performance-test">SBLT 홈페이지에서 성능테스트 서비스 보기 →</a></div>
+    </article><aside class="side-card"><small>SBLT SERVICE</small><h2>성능테스트 서비스 자세히 보기</h2><p>홈페이지의 Performance Testing 서비스와 전체 Performance Engineering 수행 과정을 확인하세요.</p><a class="cta" href="https://sblt.ai/#performance-test">홈 방문하기 →</a></aside></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>SBLT Inc. · Performance Engineering Company</span><span>© 2026 SBLT Inc.</span></div></footer>
+</body>
+</html>

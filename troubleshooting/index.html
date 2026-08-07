@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>시스템 장애·성능 병목 Root Cause Analysis | SBLT</title>
+  <meta name="description" content="Heap Dump, Thread Dump, GC, Slow Query, Latency, CPU, Memory를 연결해 복잡한 시스템 장애와 성능 병목의 Root Cause를 분석하는 SBLT 트러블슈팅 서비스입니다.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sblt.ai/troubleshooting/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="복잡한 시스템 장애와 성능 병목의 Root Cause Analysis">
+  <meta property="og:description" content="Application부터 Infrastructure까지 연결해 장애와 성능 병목의 근본 원인을 분석합니다.">
+  <meta property="og:url" content="https://sblt.ai/troubleshooting/">
+  <meta property="og:image" content="https://sblt.ai/assets/og-sblt.jpg">
+  <link rel="icon" href="/assets/sblt-mark.png">
+  <link rel="stylesheet" href="/assets/seo-landing.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEBW760W96"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-MEBW760W96');</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"SBLT 시스템 트러블슈팅","serviceType":"Root Cause Analysis","provider":{"@type":"Organization","name":"SBLT","url":"https://sblt.ai/"},"areaServed":"KR","url":"https://sblt.ai/troubleshooting/","description":"Application부터 Infrastructure까지 연결해 장애와 성능 병목의 근본 원인을 분석하는 서비스"}</script>
+</head>
+<body>
+  <header class="site-header"><div class="shell header-inner"><a class="brand" href="/" aria-label="SBLT 홈페이지"><img src="/assets/sblt-logo.png" alt="SBLT" width="1080" height="288"></a><a class="header-link" href="/#contact">프로젝트 문의 →</a></div></header>
+  <main>
+    <section class="hero"><div class="shell hero-inner"><p class="eyebrow">Troubleshooting · Root Cause</p><h1>복잡한 시스템 장애와 성능 병목의 Root Cause Analysis</h1><p class="hero-lead">서로 분리된 지표의 이상 징후를 하나의 Transaction 흐름으로 연결해 반복 장애, 응답 지연과 자원 병목의 근본 원인을 찾습니다.</p><div class="hero-tags"><span>Heap Dump</span><span>Thread Dump</span><span>GC</span><span>Slow Query</span><span>Latency</span><span>CPU · Memory</span></div></div></section>
+    <section class="content"><div class="shell article-grid"><article class="article-body">
+      <h2>증상이 아니라 장애의 근본 원인을 찾습니다</h2>
+      <p>복잡한 시스템의 <strong>트러블슈팅</strong>은 CPU가 높다거나 응답이 느리다는 현상을 확인하는 데서 끝나지 않습니다. 동일한 증상도 Application Code, JVM, Database, Network, OS 또는 Infrastructure의 상호작용에 따라 전혀 다른 원인에서 발생할 수 있습니다.</p>
+      <p>SBLT는 사용자 요청이 지나가는 전체 Transaction을 기준으로 <strong>장애 분석</strong>을 수행합니다. 장애 시점의 Log와 Monitoring 지표, 호출 관계를 같은 시간축에 배치하고 정상 구간과 비교해 원인 후보를 좁힙니다. 이를 통해 임시 조치가 아니라 재현 가능하고 설명 가능한 <strong>Root Cause Analysis</strong>를 지향합니다.</p>
+      <h2>Application과 JVM 내부를 분석합니다</h2>
+      <p>Java Application의 지연과 장애에서는 <strong>Heap Dump</strong>, <strong>Thread Dump</strong>, <strong>GC</strong> Log가 중요한 단서를 제공합니다. Memory Leak이 의심되면 객체 점유와 참조 관계를 확인하고, 처리 정체가 발생하면 Thread 상태와 Lock 경합, 외부 호출 대기를 분석합니다.</p>
+      <ul class="check-list">
+        <li><strong>Heap Dump:</strong> 메모리 점유 객체와 참조 구조를 분석해 누수 가능성을 확인합니다.</li>
+        <li><strong>Thread Dump:</strong> Blocked, Waiting, Deadlock과 장시간 실행 Thread를 추적합니다.</li>
+        <li><strong>GC 분석:</strong> Heap 변화, Pause Time과 Throughput 저하의 연관성을 검증합니다.</li>
+        <li><strong>CPU·Memory 분석:</strong> 자원 사용 증가의 주체와 사용자 영향도를 구분합니다.</li>
+      </ul>
+      <h2>Slow Query와 Latency를 Transaction으로 연결합니다</h2>
+      <p><strong>Slow Query</strong>가 발견되었다고 해서 항상 Database가 전체 지연의 원인은 아닙니다. Connection Pool 대기, Lock, 잘못된 실행계획, 과도한 호출 횟수 또는 Network <strong>Latency</strong>가 결합될 수 있습니다. SBLT는 SQL 실행시간과 호출 빈도, Transaction 응답시간을 연결해 실제 영향도를 확인합니다.</p>
+      <p>Microservice 환경에서는 한 요청이 여러 서비스를 통과하므로 개별 서비스 지표만으로 <strong>성능 병목</strong>을 찾기 어렵습니다. 호출 경로와 Multi-Hop Latency를 추적하고 Kafka, Cache, Database 같은 의존 구간을 함께 분석해야 병목이 시작된 지점을 구분할 수 있습니다.</p>
+      <h2>복구 이후 재발 방지까지 이어갑니다</h2>
+      <p>장애 원인을 찾은 뒤에는 개선 변경과 재검증이 필요합니다. SBLT는 설정 변경, Code 또는 SQL 개선, 자원 조정이 실제 응답시간과 처리량에 미친 영향을 확인하고 Monitoring 기준과 운영 절차에 반영합니다.</p>
+      <p>이 과정은 장애 분석 보고서 한 장으로 끝나는 컨설팅이 아니라, 문제의 원인을 제거하고 같은 장애를 더 빠르게 감지하거나 예방할 수 있도록 만드는 Performance Engineering입니다.</p>
+      <div class="bottom-cta"><h2>반복되는 장애의 연결고리를 찾으세요</h2><p>Application부터 Infrastructure까지 분리된 단서를 하나의 원인으로 연결합니다.</p><a class="cta" href="https://sblt.ai/#troubleshooting">SBLT 홈페이지에서 트러블슈팅 서비스 보기 →</a></div>
+    </article><aside class="side-card"><small>SBLT SERVICE</small><h2>트러블슈팅 서비스 자세히 보기</h2><p>홈페이지의 Troubleshooting 서비스와 End-to-End 분석 방식을 확인하세요.</p><a class="cta" href="https://sblt.ai/#troubleshooting">홈 방문하기 →</a></aside></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>SBLT Inc. · Performance Engineering Company</span><span>© 2026 SBLT Inc.</span></div></footer>
+</body>
+</html>
