@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhaTap 수집서버 설치 가이드 — gs-3.1.5-6934</title>
+<style>
+  :root {
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5c6470; --line:#e3e7ec;
+    --code-bg:#f6f8fa; --accent:#0b6bcb; --warn-bg:#fff8e6; --warn-line:#e0b400;
+    --danger-bg:#fdf0ef; --danger-line:#d64f45;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#14171a; --fg:#e6e9ed; --muted:#9aa4b2; --line:#2a2f36;
+      --code-bg:#1c2126; --accent:#5aa9f0; --warn-bg:#2e2718; --warn-line:#9c7c11;
+      --danger-bg:#2e1c1a; --danger-line:#c4544a;
+    }
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:0 1.25rem 5rem; background:var(--bg); color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",
+         "Noto Sans KR",Segoe UI,Roboto,sans-serif;
+  }
+  .wrap { max-width:52rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--line); margin-bottom:2rem; }
+  h1 { font-size:1.7rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  h2 { font-size:1.2rem; margin:2.5rem 0 .75rem; padding-top:1.25rem; border-top:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.75rem 0 .5rem; }
+  p, li { color:var(--fg); }
+  .sub { color:var(--muted); font-size:.9rem; margin:0; }
+  .badge {
+    display:inline-block; padding:.15rem .55rem; border-radius:999px; font-size:.8rem;
+    background:var(--code-bg); border:1px solid var(--line); font-family:ui-monospace,monospace;
+  }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.92rem; display:block; overflow-x:auto; }
+  th, td { border:1px solid var(--line); padding:.5rem .7rem; text-align:left; vertical-align:top; }
+  th { background:var(--code-bg); font-weight:600; white-space:nowrap; }
+  .cmd { position:relative; margin:.75rem 0 1.25rem; }
+  .cmd pre {
+    margin:0; padding:.9rem 5.5rem .9rem .9rem; background:var(--code-bg);
+    border:1px solid var(--line); border-radius:8px; overflow-x:auto;
+    font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .cmd button {
+    position:absolute; top:.55rem; right:.55rem; padding:.3rem .7rem; font-size:.8rem;
+    border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--muted);
+    cursor:pointer; font-family:inherit;
+  }
+  .cmd button:hover { color:var(--fg); border-color:var(--muted); }
+  .cmd button.done { color:#127a3d; border-color:#127a3d; }
+  code:not(pre code) {
+    background:var(--code-bg); padding:.1rem .35rem; border-radius:4px;
+    font:.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .note, .warn, .danger { padding:.85rem 1rem; border-radius:8px; margin:1.25rem 0; font-size:.93rem; }
+  .note   { background:var(--code-bg); border:1px solid var(--line); }
+  .warn   { background:var(--warn-bg); border:1px solid var(--warn-line); }
+  .danger { background:var(--danger-bg); border:1px solid var(--danger-line); }
+  .note :first-child, .warn :first-child, .danger :first-child { margin-top:0; }
+  .note :last-child, .warn :last-child, .danger :last-child { margin-bottom:0; }
+  footer { margin-top:3.5rem; padding-top:1.25rem; border-top:1px solid var(--line);
+           color:var(--muted); font-size:.85rem; }
+  a { color:var(--accent); }
+  ol, ul { padding-left:1.3rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>WhaTap 수집서버 설치 가이드</h1>
+  <p class="sub">멀티모드 9서비스 · air-gap 번들(JRE 동봉) · 버전 <span class="badge">gs-3.1.5-6934</span></p>
+</header>
+<div class="danger">
+  <p><strong>이 버전은 범용 배포본이 아닙니다.</strong>
+  <code>gs-3.1.5-6934</code> 는 <code>gs</code> 전용 빌드입니다.
+  다른 환경에 설치하면 그 환경에 없는 기능이 켜지거나 설정이 어긋날 수 있습니다.</p>
+  <p>담당자에게 대상 버전을 확인한 뒤 진행하세요. 범용 버전은 접두어 없이
+  <code>2.7.9-5598</code> 같은 형태입니다. 설치된 번들의 정확한 출처는
+  <code>/data/whatap</code> 전개 시 함께 받은 <code>MANIFEST</code> 의
+  <code>source</code>·<code>source_sha256</code> 에 기록됩니다.</p>
+</div>
+<h2>1. 사전 요구사항</h2>
+<table>
+  <tr><th>OS</th><td>Linux + systemd (Ubuntu 20.04+ / RHEL 8+ 등)</td></tr>
+  <tr><th>RAM</th><td><strong>16GB 이상</strong> — 9개 JVM heap 합계 약 9.4GB (preflight 기준 14000MB)</td></tr>
+  <tr><th>디스크</th><td>yard File DB 용 <strong>10GB 이상</strong> 여유 (<code>/data/whatap/db</code>)<br>
+      설치 중 번들 다운로드·전개에 임시로 <strong>6GB</strong> 추가 필요</td></tr>
+  <tr><th>JRE</th><td>번들에 동봉 (Temurin 17.x ≥ 17.0.2) — <strong>호스트에 Java 불필요</strong></td></tr>
+  <tr><th>포트</th><td>6500 · 6600 · 6610 · 6620 · 6761 · 6789 · 7700 · 7710 · 7770 · 7800 ·
+      8080 · 8800 · 8870 · 18080 <strong>(14종)</strong> 미사용</td></tr>
+  <tr><th>권한</th><td>설치 시 root (<code>sudo</code>)</td></tr>
+  <tr><th>라이선스</th><td>설치 후 <code>whatap-configure</code> 단계에서 입력</td></tr>
+</table>
+
+<h2>2. 설치</h2>
+
+<h3>A. 권장 — 내려받아 확인한 뒤 실행</h3>
+<p>설치 스크립트는 root 로 동작합니다. 내용을 먼저 확인하고 실행하세요.</p>
+<div class="cmd"><pre><code>curl -fsSLO https://repo.whatap.io/whatap-installer/install.sh
+curl -fsSLO https://repo.whatap.io/whatap-installer/install.sh.sha256
+sha256sum -c install.sh.sha256
+less install.sh                     # 내용 확인 (q 로 종료)
+sudo bash install.sh --version gs-3.1.5-6934</code></pre></div>
+
+<h3>B. 빠른 설치 — 한 줄</h3>
+<div class="cmd"><pre><code>curl -fsSL https://repo.whatap.io/whatap-installer/install.sh | sudo bash -s -- --version gs-3.1.5-6934</code></pre></div>
+<div class="note">
+  <p><code>--version</code> 을 생략하면 접두어 없는 <strong>범용(GA) 최신</strong>만 선택됩니다.
+  고객·기능 전용 빌드는 자동으로 선택되지 않습니다 — 아무 옵션 없이 실행한 사람에게 다른 고객용
+  빌드가 설치되는 것을 막기 위해서입니다.</p>
+</div>
+
+<h3>C. 폐쇄망(air-gap) — 번들을 직접 옮겨 설치</h3>
+<p>인터넷이 되는 머신에서 3개 파일을 받아 USB·반입 포털로 옮깁니다.</p>
+<div class="cmd"><pre><code>VER=gs-3.1.5-6934
+curl -fsSLO "https://repo.whatap.io/whatap-installer/install.sh"
+curl -fsSLO "https://repo.whatap.io/tarball/${VER}/whatap-install-airgap-${VER}.tar.gz"
+curl -fsSLO "https://repo.whatap.io/tarball/${VER}/whatap-install-airgap-${VER}.tar.gz.sha256"</code></pre></div>
+<p>폐쇄망 노드에서 — <code>--bundle</code> 을 주면 네트워크에 접근하지 않습니다.</p>
+<div class="cmd"><pre><code>VER=gs-3.1.5-6934
+sha256sum -c "whatap-install-airgap-${VER}.tar.gz.sha256"
+sudo bash install.sh --bundle "whatap-install-airgap-${VER}.tar.gz"</code></pre></div>
+
+<h3>설치 스크립트 옵션</h3>
+<table>
+  <tr><th><code>--version &lt;ver&gt;</code></th><td>설치할 번들 버전. 생략 시 GA 최신</td></tr>
+  <tr><th><code>--bundle &lt;경로&gt;</code></th><td>이미 받아 둔 번들로 설치 (폐쇄망 · 네트워크 미사용)</td></tr>
+  <tr><th><code>--home &lt;경로&gt;</code></th><td>설치 위치 (기본 <code>/data/whatap</code>)</td></tr>
+  <tr><th><code>--no-start</code></th><td>설치만 하고 기동하지 않음</td></tr>
+  <tr><th><code>--list</code></th><td>받을 수 있는 버전 목록만 출력</td></tr>
+  <tr><th><code>--dry-run</code></th><td>내려받기·무결성 검증까지만 (설치하지 않음, root 불필요)</td></tr>
+</table>
+
+<h2>3. 설정 — 설치 직후 반드시 실행</h2>
+<p>수집서버 IP와 라이선스를 입력하고 기동합니다. 대화형이며, 재실행해도 안전합니다(기존 값이 기본값으로 제시됨).</p>
+<div class="cmd"><pre><code>sudo /data/whatap/bin/whatap-configure</code></pre></div>
+<div class="note">
+  <p>입력 항목: <strong>owner IP</strong>(이 호스트의 사설 IP — 9개 서비스가 서로를 찾는 주소) ·
+  <strong>라이선스 키</strong> · (선택) SMTP. 설정은 <code>/data/whatap/conf/*.conf</code> 에 반영되고
+  직전 상태는 <code>conf.bak.&lt;타임스탬프&gt;</code> 로 백업됩니다.</p>
+</div>
+
+<h2>4. 확인</h2>
+<div class="cmd"><pre><code>systemctl status 'whatap-*.service' --no-pager
+systemctl is-active whatap.target
+curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8080/</code></pre></div>
+<p>9개 서비스가 모두 <code>active</code>, front 가 <code>200</code> 또는 <code>302</code> 면 정상입니다.
+웹 UI 는 <code>http://&lt;호스트IP&gt;:8080</code> 입니다.</p>
+<div class="warn">
+  <p>초기 계정은 <code>admin@whatap.io</code> / <code>admin</code> 입니다.
+  <strong>첫 로그인 직후 비밀번호를 변경하세요.</strong></p>
+</div>
+
+<h3>기동되지 않을 때</h3>
+<div class="cmd"><pre><code>journalctl -u whatap-front -n 100 --no-pager
+sudo /data/whatap/bin/preflight.sh          # 포트·메모리·권한 점검
+ls -la /data/whatap                          # 홈이 whatap 소유여야 한다</code></pre></div>
+<p>가장 흔한 원인은 <strong>포트 충돌</strong>과 <strong>메모리 부족</strong>입니다. 위 preflight 가 둘 다 짚어 줍니다.</p>
+
+<h2>5. 업그레이드 · 제거</h2>
+<h3>업그레이드</h3>
+<p>같은 명령을 새 버전으로 다시 실행합니다. <code>conf</code> 는 보존되고 <code>lib</code>·<code>jre</code>·유닛만 갱신됩니다.</p>
+<div class="cmd"><pre><code>sudo systemctl stop whatap.target
+sudo bash install.sh --version &lt;새-버전&gt;
+sudo systemctl start whatap.target</code></pre></div>
+<h3>제거</h3>
+<p>기본 제거는 systemd 유닛 9종만 정리하고 <strong>데이터와 설정은 보존</strong>합니다.</p>
+<div class="cmd"><pre><code>sudo /data/whatap/bin/uninstall.sh</code></pre></div>
+<p>데이터까지 완전히 지우려면 <code>--purge</code> 를 붙입니다.</p>
+<div class="cmd"><pre><code>sudo /data/whatap/bin/uninstall.sh --purge</code></pre></div>
+<div class="danger">
+  <p><code>--purge</code> 는 <code>/data/whatap</code> 전체(yard File DB · 라이선스 · 설정)를 삭제하고
+  <code>whatap</code> 계정·그룹까지 제거합니다. <strong>되돌릴 수 없습니다</strong> —
+  필요한 것은 먼저 백업하세요.</p>
+</div>
+<div class="note">
+  <p>폐쇄망에서 번들을 직접 전개해 설치했다면 번들 안 <code>sudo common/uninstall.sh</code> 도
+  같은 동작을 합니다. 설치 위치를 바꿨다면(<code>--home</code>) 제거 시에도
+  <code>WHATAP_HOME=&lt;경로&gt;</code> 를 동일하게 지정하세요.</p>
+</div>
+
+<h2>부록 — 받을 수 있는 버전 목록</h2>
+<p>다운로드 도메인은 CDN 을 거치며 쿼리스트링을 제거하므로, 목록 조회에는 S3 경로 스타일 주소를 씁니다.</p>
+<div class="cmd"><pre><code>curl -sS "https://s3.ap-northeast-2.amazonaws.com/repo.whatap.io/?prefix=tarball/&amp;delimiter=/" \
+  | grep -o '&lt;Prefix&gt;tarball/[^&lt;]*/&lt;/Prefix&gt;' \
+  | sed -E 's#&lt;Prefix&gt;tarball/(.*)/&lt;/Prefix&gt;#\1#'</code></pre></div>
+<p>또는 설치 스크립트로:</p>
+<div class="cmd"><pre><code>bash install.sh --list</code></pre></div>
+<div class="warn">
+  <p><strong>보관은 최신 20개입니다.</strong> 그보다 오래된 버전은 새 버전이 발행될 때 삭제됩니다.
+  특정 버전을 오래 유지해야 한다면 번들을 내려받아 별도로 보관하세요.</p>
+</div>
+
+<footer>
+  <p>WhaTap 수집서버 멀티모드 9서비스 — keeper · eureka · yard · proxy · gateway · account · front · notihub · flexreport</p>
+  <p>버전 gs-3.1.5-6934 · 문서 생성 2026-08-11T12:13:50Z</p>
+</footer>
+
+</div>
+<script>
+// 복사 버튼 — 각 명령 블록에 붙인다. 외부 리소스를 쓰지 않으므로 저장해서 반입해도 동작한다.
+document.querySelectorAll('.cmd').forEach(function (box) {
+  var pre = box.querySelector('pre');
+  if (!pre) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = '복사';
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () {
+      btn.textContent = '복사됨'; btn.classList.add('done');
+      setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('done'); }, 1500);
+    };
+    // navigator.clipboard 는 보안 컨텍스트(https/localhost)에서만 있다. 사내 http 로 열어 보는
+    // 경우가 있어 execCommand 폴백을 남긴다.
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = '복사 실패'; }
+      document.body.removeChild(ta);
+    }
+  });
+  box.appendChild(btn);
+});
+</script>
+</body>
+</html>
